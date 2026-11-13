@@ -30,7 +30,6 @@ $sb = New-Object System.Text.StringBuilder
 [void]$sb.AppendLine("AND,((DOMAIN,youtubei.googleapis.com),(PROTOCOL,UDP)),REJECT")
 [void]$sb.AppendLine("")
 [void]$sb.AppendLine("[Header Rewrite]")
-[void]$sb.AppendLine("^https?:\/\/api\.revenuecat\.com\/.+\/(receipts$|subscribers\/?[^\/]*$) header-del X-RevenueCat-ETag")
 [void]$sb.AppendLine("^https:\/\/(spclient\.wg\.spotify\.com|.*-spclient\.spotify\.com(:443)?)\/user-customization-service\/v1\/customize$ header-del if-none-match")
 [void]$sb.AppendLine("")
 [void]$sb.AppendLine("[URL Rewrite]")
