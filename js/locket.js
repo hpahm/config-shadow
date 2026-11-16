@@ -1,29 +1,15 @@
-// Universal RevenueCat & Locket Gold
+// ========= ID ========= //
 const mapping = {
   '%E8%BD%A6%E7%A5%A8%E7%A5%A8': ['vip+watch_vip'],
   'Locket': ['Gold']
 };
 
-var ua = $request.headers["User-Agent"] || $request.headers["user-agent"] || "";
-var obj = {};
-
-try {
+var ua = $request.headers["User-Agent"] || $request.headers["user-agent"] || "",
   obj = JSON.parse($response.body);
-} catch (e) {
-  obj = {};
-}
 
-if (!obj.subscriber) {
-  obj.subscriber = {};
-}
-if (!obj.subscriber.subscriptions) {
-  obj.subscriber.subscriptions = {};
-}
-if (!obj.subscriber.entitlements) {
-  obj.subscriber.entitlements = {};
-}
+obj.Attention = "Chúc mừng bạn! Vui lòng không bán hoặc chia sẻ cho người khác!";
 
-var subData = {
+var ohoang7 = {
   is_sandbox: !1,
   ownership_type: "PURCHASED",
   billing_issues_detected_at: null,
@@ -36,36 +22,27 @@ var subData = {
   store: "app_store"
 };
 
-var entData = {
+var vuong2023 = {
   grace_period_expires_date: null,
   purchase_date: "2024-07-28T01:04:17Z",
-  product_identifier: "locket_1600_1y",
+  product_identifier: "com.ohoang7.premium.yearly",
   expires_date: "2099-12-18T01:04:17Z"
 };
 
-const match = Object.keys(mapping).find(e => ua.toLowerCase().includes(e.toLowerCase()));
+const match = Object.keys(mapping).find(e => ua.includes(e));
 
 if (match) {
   let [e, s] = mapping[match];
   if (s) {
-    entData.product_identifier = s;
-    obj.subscriber.subscriptions[s] = subData;
+    vuong2023.product_identifier = s;
+    obj.subscriber.subscriptions[s] = ohoang7;
   } else {
-    obj.subscriber.subscriptions["locket_1600_1y"] = subData;
-    obj.subscriber.subscriptions["locket_3600_1y"] = subData;
-    obj.subscriber.subscriptions["com.locket.gold.yearly"] = subData;
-    obj.subscriber.subscriptions["locket_gold"] = subData;
-    obj.subscriber.subscriptions["Gold"] = subData;
+    obj.subscriber.subscriptions["com.ohoang7.premium.yearly"] = ohoang7;
   }
-  obj.subscriber.entitlements[e] = entData;
+  obj.subscriber.entitlements[e] = vuong2023;
 } else {
-  obj.subscriber.subscriptions["locket_1600_1y"] = subData;
-  obj.subscriber.subscriptions["locket_3600_1y"] = subData;
-  obj.subscriber.subscriptions["com.locket.gold.yearly"] = subData;
-  obj.subscriber.subscriptions["locket_gold"] = subData;
-  obj.subscriber.subscriptions["Gold"] = subData;
-  obj.subscriber.entitlements["Gold"] = entData;
-  obj.subscriber.entitlements["pro"] = entData;
+  obj.subscriber.subscriptions["com.ohoang7.premium.yearly"] = ohoang7;
+  obj.subscriber.entitlements.pro = vuong2023;
 }
 
 $done({ body: JSON.stringify(obj) });
