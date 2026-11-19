@@ -1,7 +1,7 @@
 // ========= ID ========= //
 const mapping = {
-  '%E8%BD%A6%E7%A5%A8%E7%A5%A8': ['vip+watch_vip'],
-  'Locket': ['Gold']
+  '%E8%BD%A6%E7%A5%A8%E7%A5%A8': ['vip+watch_vip', 'vip+watch_vip'],
+  'Locket': ['Gold', 'Gold']
 };
 
 var ua = $request.headers["User-Agent"] || $request.headers["user-agent"] || "",
@@ -41,8 +41,10 @@ if (match) {
   }
   obj.subscriber.entitlements[e] = vuong2023;
 } else {
-  obj.subscriber.subscriptions["com.ohoang7.premium.yearly"] = ohoang7;
-  obj.subscriber.entitlements.pro = vuong2023;
+  // Fix sau khi fix YouTube: UA bị đổi nên không match, vẫn trả Gold
+  vuong2023.product_identifier = "Gold";
+  obj.subscriber.subscriptions["Gold"] = ohoang7;
+  obj.subscriber.entitlements["Gold"] = vuong2023;
 }
 
 $done({ body: JSON.stringify(obj) });
